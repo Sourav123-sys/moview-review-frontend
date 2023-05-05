@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
     return (
@@ -32,8 +33,9 @@ const SignIn = () => {
                     p-1'/>
 
                     <div className='flex justify-between'>
-                        <a className='text-gray-400 hover:text-white transition'        href='#'>Forgot Password?</a>
-                        <a className='text-gray-400 hover:text-white transition'   href='#'>Sign Up</a>
+                        <Link className='text-gray-400 hover:text-white transition'        to='/forgot-password'>Forgot Password?</Link>
+                        <Link className='text-gray-400 hover:text-white transition'
+                            to='/signup'>Sign Up</Link>
                        
                         
                     </div>

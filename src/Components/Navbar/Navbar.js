@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from "../../sflix.png";
 import { BsFillSunFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom';
 const Navbar = () => {
     return (
         <div className='bg-[#272727] shadow-sm shadow-gray-500'>
@@ -21,7 +22,9 @@ const Navbar = () => {
                                 placeholder='search your movie...'
                             />
                         </li>
-                        <li className='text-[#dedada] font-semibold text-lg'>Login</li>
+                        <li className='text-[#dedada] font-semibold text-lg'>
+                         <Link to='/signin'> Login</Link>  
+                        </li>
 
                     </ul>
                 </div>
