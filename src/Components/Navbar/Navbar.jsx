@@ -2,18 +2,24 @@ import React from 'react';
 import logo from "../../sflix.png";
 import { BsFillSunFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
+import useTheme from '../../Hooks/useTheme';
 const Navbar = () => {
+    const {toggleTheme} =useTheme()
     return (
         <div className='bg-[#272727] shadow-sm shadow-gray-500'>
             <div className="bg-[#272424]    max-w-screen-xl mx-auto p-2">
 
                 <div className='flex justify-between items-center'>
+                    <Link to='/'>
                     <img src={logo} alt="" className='h-10' />
 
+                  </Link>
                     <ul className='flex items-center space-x-3'>
 
                         <li>
-                            <button className='bg-[#302b2b] p-2 rounded'>
+                            <button
+                            onClick={toggleTheme}
+                                className='bg-[#302b2b] p-2 rounded'>
                                 <BsFillSunFill className='text-white' size={26}></BsFillSunFill>
                             </button>
                         </li>
