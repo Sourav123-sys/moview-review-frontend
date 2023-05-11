@@ -9,6 +9,9 @@ import Home from './Components/Home/Home';
 import ConfirmPassword from './Components/ConFirmAndVerification/ConfirmPassword';
 import EmailVerification from './Components/ConFirmAndVerification/EmailVerification';
 import ForgetPassword from './Components/ConFirmAndVerification/ForgetPassword';
+import { Toaster } from 'react-hot-toast';
+import NotFound from './Components/NotFound.js/NotFound';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -22,8 +25,11 @@ function App() {
         <Route path='/confirm-password' element={<ConfirmPassword/>}></Route>
         <Route path='/email-verification' element={<EmailVerification/>}></Route>
         <Route path='/forgot-password' element={<ForgetPassword/>}></Route>
+        <Route path='*' element={<NotFound/>}></Route>
      
       </Routes>
+      <Toaster />
+      <ToastContainer />
     </div>
   );
 }
