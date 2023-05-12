@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { verifyUserEmail } from '../../Api/Auth';
 import { toast } from 'react-hot-toast';
+import { useAuth } from '../../Hooks/useTheme';
 
 
 
@@ -14,6 +15,9 @@ const EmailVerification = () => {
     const [otp, setOtp] = useState(new Array(OTP_LENGTH).fill(''))
     const [activeOtpIndex, setActiveOtpIndex] = useState(0)
     // console.log(activeOtpIndex,"active")
+
+    const { isAuth, authInfo } = useAuth()
+    const{isLoggeIn} = authInfo
     const inputRef = useRef()
     const { state } = useLocation()
     const user = state?.user
@@ -66,7 +70,12 @@ const EmailVerification = () => {
         if (!user) {
             navigate('/not-found')
         }
-    }, [user])
+        if (isLoggeIn) {
+            navigate('/')
+        }
+    }, [user,isLoggeIn])
+
+
     const isValidOTP = (otp) => {
         let valid = false;
 
@@ -87,7 +96,7 @@ const EmailVerification = () => {
             return toast.error('invalid-otp')
         }
 
-        const  {error,message}  = await verifyUserEmail({
+        const  {error,message,user:userResponse}  = await verifyUserEmail({
             OTP: otp.join(''),
             userId: user.id
         })
@@ -98,6 +107,8 @@ const EmailVerification = () => {
         else {
             toast.success(message)
         }
+        localStorage.setItem('auth-token', userResponse.token)
+        isAuth()
         console.log(otp)
     }
     return (

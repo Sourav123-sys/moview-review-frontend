@@ -13,7 +13,7 @@ const SignIn = () => {
     const { register, reset, trigger, handleSubmit, watch, formState: { errors } } = useForm();
   
     const [show, setShow] = useState(true)
-    console.log(show,'show')
+
     const navigate = useNavigate()
 
 
@@ -29,7 +29,8 @@ console.log(authInfo, 'authInfo')
         // console.log(data.email, 'data from signin')
         // console.log(data.password, 'data from signin')
         console.log(data, 'data from signin')
-        handleLogin(data.email,data.password)
+ handleLogin(data.email, data.password)
+        console.log(authInfo,'error from login')
         reset()
 
        //  navigate('/email-verification', { state: { user: userFindId }, replace: true })

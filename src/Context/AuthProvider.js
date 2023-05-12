@@ -21,16 +21,23 @@ const AuthProvider = ({ children }) => {
     const [authInfo, setAuthInfo] = useState({ ...defaultAuthInfo })
 
     const navigate = useNavigate()
+
+
     const handleLogin = async (email, password) => {
 
         console.log(email, password, 'from handlelogin')
 
         setAuthInfo({ ...authInfo, isPending: true })
 
-        const { error, user } = await signInUser({ email, password })
+        const { data } = await signInUser({ email, password })
+        console.log(data, 'from handlelogin')
+        const user = data.user
+        const error = data.error
         console.log(user, 'user from hadnle-login-authprovider')
+        console.log(error, 'error from hadnle-login-authprovider')
 
         if (error) {
+            toast.error(error)
             return setAuthInfo({ ...authInfo, isLoggeIn: false, isPending: false, error })
         }
 
@@ -39,14 +46,14 @@ const AuthProvider = ({ children }) => {
         });
 
         localStorage.setItem('auth-token', user.token)
-        if (error) {
-            toast.error(error.message)
-        } else {
-            // navigate('/')
-            // toast.success('login succesfully.')
-            console.log('login succesfully.')
+      
+      if (user) {
+          navigate('/')
+        toast.success('login successfull.')
+       
+      }
 
-        }
+     
     }
 
 
@@ -57,16 +64,20 @@ const AuthProvider = ({ children }) => {
         if (!token) return
 
         setAuthInfo({ ...authInfo, isPending: true })
-        const { error, user } = await getIsAuth(token)
+        const { data } = await getIsAuth(token)
+        const user = data.user
+        const error = data.error
         console.log(error,'error for isAuth')
         console.log(user,'user for isAuth')
         if (error) {
+            toast.error(error)
             return setAuthInfo({ ...authInfo, isLoggeIn: false, isPending: false, error })
         }
         setAuthInfo({
             profile: { ...user }, isPending: false, isLoggeIn: true, error: ''
         });
     }
+
 
     const handleLogout = () => {
         localStorage.removeItem('auth-token')
