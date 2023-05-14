@@ -95,3 +95,17 @@ console.log(newPassWord,userId,token,"from resetPassword")
          console.log(error)
       }
 }
+export const resentEmailVerificationToken=async (userId) => {
+   
+ console.log(userId,"passing userId from resetPassword")
+   try {
+    
+     console.log(userId, "try passing from resetPassword")
+
+     const  res  = await client.post('user/resend-email-verificationToken',{userId})
+     console.log(res,'resentEmailVerificationToken')
+       return res
+    } catch (error) {
+         console.log(error)
+      }
+}

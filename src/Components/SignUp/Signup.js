@@ -9,48 +9,48 @@ import { useEffect } from 'react';
 import { useAuth } from '../../Hooks/useTheme';
 const Signup = () => {
 
-    const { register,reset,trigger, handleSubmit, watch, formState: { errors } } = useForm();
-console.log(errors)
+    const { register, reset, trigger, handleSubmit, watch, formState: { errors } } = useForm();
+    console.log(errors)
     const [show, setShow] = useState(true)
 
     const navigate = useNavigate()
 
-    const onSubmit = async (data )=> {
-     const  userFindId =  await createUser(data);
-       console.log(userFindId ,'find id')
-        console.log(userFindId ,'user-signup')
+    const onSubmit = async (data) => {
+        const userFindId = await createUser(data);
+        console.log(userFindId, 'find id')
+        console.log(userFindId, 'user-signup')
         reset()
-       
+
         navigate('/email-verification', { state: { user: userFindId }, replace: true })
         toast.success('please,Verify your email.')
     }
     let nameerrorMsg;
-  
+
     if (errors?.name?.message) {
         nameerrorMsg = <p className='text-red-700'>Error :{errors?.name?.message}</p>;
-        
+
     }
     let emailerrorMsg;
-  
+
     if (errors?.email?.message) {
         emailerrorMsg = <p className='text-red-700'>Error :{errors?.email?.message}</p>;
-        
+
     }
     let passworderrorMsg;
-  
+
     if (errors?.password?.message) {
         passworderrorMsg = <p className='text-red-700'>Error :{errors?.password?.message}</p>;
-        
+
     }
     const { authInfo } = useAuth()
-    const { isLoggeIn } = authInfo
+    const { isLoggedIn } = authInfo
     useEffect(() => {
 
-        if (isLoggeIn) {
+        if (isLoggedIn) {
             navigate('/')
         }
 
-    }, [isLoggeIn])
+    }, [isLoggedIn])
     return (
         <div className='fixed inset-0  dark:bg-slate-900 -z-10 flex justify-center items-center'>
 
@@ -64,18 +64,18 @@ console.log(errors)
                     <div className='flex flex-col-reverse mt-4'>
 
                         <input
-                            
+
                             type='name' name='name' id='name'
                             {...register("name", {
                                 required: 'name is Required',
                                 minLength: {
                                     value: 3, message: 'Minimum 3 character required'
                                 }
-                              })}
-                             
-                              onKeyUp={() => {
+                            })}
+
+                            onKeyUp={() => {
                                 trigger('name')
-                                    }}
+                            }}
                             className='bg-transparent rounded border-2 border-[#ae9e9e]  w-full text-lg outline-none focus:border-[#514747] p-1 dark:text-white peer  dark:focus:border-white  text-black peer transition'
                             placeholder='example'
 
@@ -88,7 +88,7 @@ console.log(errors)
                     <div className='relative z-0 flex flex-col-reverse mt-4'>
 
                         <input
-                        
+
                             type='email' name='email' id='email'
                             {...register("email", {
                                 required: 'Email is required',
@@ -101,7 +101,7 @@ console.log(errors)
                             onKeyUp={() => {
                                 trigger('email')
                             }}
-                            
+
                             className='bg-transparent rounded border-2 border-[#ae9e9e]  w-full text-lg outline-none focus:border-[#514747] p-1 dark:text-white peer  dark:focus:border-white  text-black peer transition'
                             placeholder='example@gmail.com'
                         />
@@ -109,12 +109,12 @@ console.log(errors)
                         <label htmlFor='email'
                             className='font-semibold dark:text-[#5a5151] text-[#9d9696] dark:peer-focus:text-white peer-focus:text-[#514747] transition self-start ml-5'>Email</label>
                     </div>
-                    {emailerrorMsg }
+                    {emailerrorMsg}
                     <div className='relative z-0 flex flex-col-reverse mt-4'>
 
                         <input
-                            
-                            type={show?'password' :"text"} name='password' id='password'
+
+                            type={show ? 'password' : "text"} name='password' id='password'
                             {...register('password', {
                                 required: 'Password is required',
                                 pattern: {
@@ -128,26 +128,26 @@ console.log(errors)
                             className='bg-transparent rounded border-2 border-[#ae9e9e]  w-full text-lg outline-none focus:border-[#514747] p-1 dark:text-white peer  dark:focus:border-white  text-black peer transition'
                             placeholder='******'
                         />
-                       
-                           {
-                        show ?
-                        <>
-                                <FontAwesomeIcon className='absolute top-0 right-0 mt-9 px-2' onClick={() => setShow(!show)} icon={faEyeSlash} />
-                                <FontAwesomeIcon className="absolute top-0 left-0 mt-1" icon={faLock} ></FontAwesomeIcon>
-                        </>
-                          
-                            :
-                            <>
-                               <FontAwesomeIcon className='absolute top-0 right-0 mt-9 px-2' onClick={() => setShow(!show)} icon={faEye} />
-                               <FontAwesomeIcon className="absolute top-0 left-0 mt-1" icon={faLockOpen} ></FontAwesomeIcon>
-                            </>
-                            
-                    
-                    }
+
+                        {
+                            show ?
+                                <>
+                                    <FontAwesomeIcon className='absolute top-0 right-0 mt-9 px-2' onClick={() => setShow(!show)} icon={faEyeSlash} />
+                                    <FontAwesomeIcon className="absolute top-0 left-0 mt-1" icon={faLock} ></FontAwesomeIcon>
+                                </>
+
+                                :
+                                <>
+                                    <FontAwesomeIcon className='absolute top-0 right-0 mt-9 px-2' onClick={() => setShow(!show)} icon={faEye} />
+                                    <FontAwesomeIcon className="absolute top-0 left-0 mt-1" icon={faLockOpen} ></FontAwesomeIcon>
+                                </>
+
+
+                        }
                         <label htmlFor='password'
                             className='font-semibold dark:text-[#5a5151] text-[#9d9696] dark:peer-focus:text-white peer-focus:text-[#514747] transition self-start ml-5'>Password</label>
                     </div>
-                    {passworderrorMsg }
+                    {passworderrorMsg}
 
                     <input type='submit'
                         value='Signup'

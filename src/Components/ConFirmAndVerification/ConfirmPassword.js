@@ -71,7 +71,7 @@ const ConfirmPassword = () => {
         </div>
     }
     if (!isValid) {
-        return <div className='fixed inset-0 dark:bg-slate-900 -z-10 flex justify-center items-center'>
+        return <div className='fixed inset-0 dark:bg-slate-900 -z-10  justify-center items-center'>
 
             <div className=' max-w-screen-xl mx-auto flex items-center justify-between space-x-2'>
 
@@ -108,10 +108,10 @@ const ConfirmPassword = () => {
                 navigate('/signin', { replace: true })
                
             }
-            
+            reset()
         }
        
-        reset()
+    
 
         //  navigate('/email-verification', { state: { user: userFindId }, replace: true })
 

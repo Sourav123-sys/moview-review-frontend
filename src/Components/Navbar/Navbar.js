@@ -8,18 +8,18 @@ import { useEffect } from 'react';
 const Navbar = () => {
     const { toggleTheme } = useTheme()
 
-    const { authInfo,handleLogout } = useAuth()
-    const { isLoggeIn } = authInfo
+    const { authInfo, handleLogout } = useAuth()
+    const { isLoggedIn } = authInfo
 
     const navigate = useNavigate()
 
     useEffect(() => {
 
-        if (isLoggeIn) {
+        if (isLoggedIn) {
             navigate('/')
         }
 
-    }, [isLoggeIn])
+    }, [isLoggedIn])
 
 
     return (
@@ -46,7 +46,7 @@ const Navbar = () => {
                             />
                         </li>
                         {
-                            isLoggeIn ? <li className='text-[#dedada] font-semibold text-lg'>
+                            isLoggedIn ? <li className='text-[#dedada] font-semibold text-lg'>
                                 <button onClick={handleLogout}> SignOut</button>
                             </li>
                                 :

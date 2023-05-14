@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { verifyUserEmail } from '../../Api/Auth';
+import { resentEmailVerificationToken, verifyUserEmail } from '../../Api/Auth';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../../Hooks/useTheme';
 
@@ -17,12 +17,13 @@ const EmailVerification = () => {
     // console.log(activeOtpIndex,"active")
 
     const { isAuth, authInfo } = useAuth()
-    const{isLoggeIn} = authInfo
+    const { isLoggedIn, profile } = authInfo
+    const isVerified = profile?.isVerified
     const inputRef = useRef()
     const { state } = useLocation()
     const user = state?.user
     console.log(user, 'user')
-    
+
     const navigate = useNavigate()
 
     const focusNextInputField = (index) => {
@@ -52,6 +53,29 @@ const EmailVerification = () => {
         setOtp([...newOtp])
     }
 
+    const handleOtpResent = async () => {
+        console.log('am from handleotpresent')
+        const { data } = await resentEmailVerificationToken(user.id)
+        const error = data?.error
+        const message = data?.message
+       
+        
+        console.log(error, 'error from resent email verification handleotpresent')
+        console.log(message, 'message  from resent email verification handleotpresent')
+        if (error) {
+            return toast.error(error)
+        }
+        if(message ) {
+
+            return toast.success(message)
+
+        }
+     
+         
+      
+
+    }
+
     const handleKeyDown = ({ key }, index) => {
 
         if (key === 'Backspace') {
@@ -70,10 +94,10 @@ const EmailVerification = () => {
         if (!user) {
             navigate('/not-found')
         }
-        if (isLoggeIn) {
+        if (isLoggedIn && isVerified) {
             navigate('/')
         }
-    }, [user,isLoggeIn])
+    }, [user, isLoggedIn,isVerified])
 
 
     const isValidOTP = (otp) => {
@@ -96,13 +120,13 @@ const EmailVerification = () => {
             return toast.error('invalid-otp')
         }
 
-        const  {error,message,user:userResponse}  = await verifyUserEmail({
+        const { error, message, user: userResponse } = await verifyUserEmail({
             OTP: otp.join(''),
             userId: user.id
         })
-
+        console.log(user, 'user from userresponse in handleotp')
         if (error) {
-         toast.error(error)
+            toast.error(error)
         }
         else {
             toast.success(message)
@@ -110,7 +134,12 @@ const EmailVerification = () => {
         localStorage.setItem('auth-token', userResponse.token)
         isAuth()
         console.log(otp)
+      
+           
+        
     }
+
+
     return (
         <div className='fixed inset-0 dark:bg-slate-900 -z-10 flex justify-center items-center'>
 
@@ -145,7 +174,9 @@ const EmailVerification = () => {
                         className='w-full rounded bg-black text-white hover:bg-opacity-90 transition font-semibold text-lg  mt-4 cursor-pointer
                     p-1'/>
 
-
+                    <button
+                        onClick={handleOtpResent}
+                        type='button' className='dark:text-violet-50 hover:underline'>I don't Have an OTP</button>
                 </form>
 
             </div>
