@@ -33,7 +33,7 @@ function App() {
 
       {
         isAdmin ?
-          <div className='flex dark:bg-slate-900 bg-white'>
+          <div className='flex dark:bg-[#192232] bg-white'>
             <AdminNavbar />
           
             <div className="flex-1 p-2 max-w-screen-xl">

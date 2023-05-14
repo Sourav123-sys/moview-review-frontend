@@ -10,7 +10,12 @@ const Header = () => {
     const [options, setOptions] = useState(false)
 
 
-
+    const handleMovie = () => {
+    console.log('handle movie')
+}
+    const handleActor = () => {
+    console.log('handle Actor')
+}
 
 
     return (
@@ -43,8 +48,12 @@ const Header = () => {
                     <div className='absolute right-0 top-12 flex flex-col space-y-3 p-5
              dark:bg-[#4d4141]  bg-white drop-shadow-lg rounded  animate-scale 
                '>
-                        <button className='dark:text-white text-black hover:opacity-80 transition'>Add Movie</button>
-                        <button className='dark:text-white text-black hover:opacity-80 transition'>Add Actor</button>
+                        <button
+                            onClick={handleMovie}
+                            className='dark:text-white text-black hover:opacity-80 transition'>Add Movie</button>
+                        <button
+                            onClick={handleActor}
+                            className='dark:text-white text-black hover:opacity-80 transition'>Add Actor</button>
                     </div>
                     : null
             }
