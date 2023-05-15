@@ -1,24 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import TagsInput from './TagsInput';
+import LiveSearch from './LiveSearch';
 
 const MovieForm = () => {
+    const [results,setResults] = useState()
+    console.log(results,'results from movie form')
     const { register, reset, trigger, handleSubmit, watch, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
 
-     console.log(data,'data from movie form');
+        console.log(data, 'data from movie form');
 
-       
-       
+
+
     }
+
+    useEffect(() => {
+        fetch('fakeData.json')
+            .then(response => response.json())
+            .then(data => setResults(data))
+
+    }, [])
+
+    const renderItem = (result) => {
+        return (
+          <div className="flex rounded overflow-hidden">
+            <img src={result.avatar} alt="" className="w-16 h-16 object-cover" />
+            <p className="dark:text-white font-semibold">{result.name}</p>
+          </div>
+        );
+      };
 
 
     return (
         <form
-            
-        onSubmit={handleSubmit(onSubmit)}
-            
+
+            onSubmit={handleSubmit(onSubmit)}
+
             className="flex space-x-3">
             <div className="w-[70%] space-y-5">
                 <div>
@@ -57,12 +76,27 @@ const MovieForm = () => {
                         placeholder="Titanic is a ...."
                     />
                 </div>
-                <TagsInput />
+
+                <div>
+                    <label
+                        className="dark:text-slate-500 text-slate-900 font-semibold"
+                        htmlFor="tags">Tags</label>
+                    <TagsInput />
+                </div>
+                <LiveSearch
+          results={results}
+      
+          renderItem={renderItem}
+          onSelect={(result) => console.log(result)}
+        />
+
             </div>
+
+
             <div className="w-[30%] h-5 bg-blue-400"></div>
 
 
-       
+
 
         </form>
     );
