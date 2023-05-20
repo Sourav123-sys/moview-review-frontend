@@ -1,6 +1,6 @@
 import React, { useState,useRef, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai'
-const TagsInput = () => {
+const TagsInput = ({name,onChange }) => {
 
 
     const [tag, setTag] = useState("");
@@ -14,8 +14,11 @@ const TagsInput = () => {
       const { value } = target;
 
       if (value !== ",") setTag(value);
+     
     };
-  
+    useEffect(() => {
+      onChange(tags)
+   }, [tags])
     const handleKeyDown = ({ key }) => {
       if (key === "," || key === "Enter") {
         if (!tag) return;

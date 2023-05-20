@@ -9,7 +9,8 @@ const LiveSearch = ({
     inputStyle,
     renderItem = null,
     onChange = null,
-    onSelect = null,
+  onSelect = null,
+  name,
   }) => {
 
    // const [results, setResults] = useState([])
@@ -32,7 +33,8 @@ const LiveSearch = ({
 
 
     const handleSelection = (selectedItem) => {
-        console.log(selectedItem);
+      console.log(selectedItem);
+      onSelect(selectedItem);
     };
 
     const handleKeyDown = ({ key }) => {
@@ -53,7 +55,7 @@ const LiveSearch = ({
     const getInputStyle = () => {
         return inputStyle
           ? inputStyle
-          :  "w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primaryw-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-2 rounded p-1 text-lg";
+          :  "w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-2 rounded p-1 text-lg";
       };
     return (
         <div
@@ -62,7 +64,9 @@ const LiveSearch = ({
             onKeyDown={handleKeyDown}
             onBlur={handleOnBlur}
             className="relative">
-            <input
+        <input
+           id={name}
+           name={name}
                 type="text"
                 className={"w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-2 rounded p-1 text-lg"}
 
@@ -70,6 +74,8 @@ const LiveSearch = ({
                 // onKeyDown={handleKeyDown}
                 onFocus={handleOnFocus}
             // onBlur={handleOnBlur}
+            value={value}
+            onChange={onChange}
             />
             <SearchResults
                    results={results}
@@ -116,7 +122,7 @@ const SearchResults = ({
     if (!visible) return null;
 
     return (
-        <div className="absolute right-0 left-0 top-10 bg-white dark:bg-secondary shadow-md p-2 max-h-64 space-y-2 mt-1 overflow-auto custom-scroll-bar-live">
+        <div className="absolute z-50 right-0 left-0 top-10 bg-white dark:bg-secondary shadow-md p-2 max-h-64 space-y-2 mt-1 overflow-auto custom-scroll-bar-live">
               {results.map((result, index) => {
         const getSelectedClass = () => {
           return selectedResultStyle
@@ -125,7 +131,7 @@ const SearchResults = ({
         };
         return (
           <ResultCard
-            key={result.id}
+          key={index.toString()}
             item={result}
             renderItem={renderItem}
             resultContainerStyle={resultContainerStyle}
@@ -156,7 +162,7 @@ const ResultCard = forwardRef((props, ref) => {
   
       return (
         selectedResultStyle +
-        " cursor-pointer rounded overflow-hidden dark:hover:bg-dark-subtle hover:bg-light-subtle transition"
+        " cursor-pointer rounded  dark:hover:bg-dark-subtle hover:bg-light-subtle transition"
       );
     };
     return (

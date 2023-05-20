@@ -19,7 +19,7 @@ import Movies from './Components/Admin/Movies';
 import Actor from './Components/Admin/Actor';
 import AdminNavbar from './Components/Admin/AdminNavbar';
 import Header from './Components/Admin/Header';
-
+import axios from "axios";
 function App() {
   const { authInfo } = useAuth()
   console.log(authInfo, 'from app')
@@ -81,5 +81,9 @@ function App() {
     </div>
   );
 }
+
+
+
+
 
 export default App;
