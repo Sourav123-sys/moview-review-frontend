@@ -10,6 +10,8 @@ import CastModal from './Modals/CastModal';
 import PosterSelector from './PosterSelector';
 import GenresSelector from './GenresSelector';
 import GenresModal from './Modals/GenresModal';
+import Selector from './Selector';
+import { languageOptions, statusOptions, typeOptions } from '../../Utilities/options';
 
 
 
@@ -124,7 +126,7 @@ const MovieForm = () => {
   const displayGenresModal = () => {
     setShowGenresModal(true);
   };
-  
+
 
   const updateCast = (castInfo) => {
     const { cast } = movieInfo;
@@ -144,15 +146,17 @@ const MovieForm = () => {
     setMovieInfo({ ...movieInfo, cast: [...newCast] });
   };
 
-
-  const { title, storyLine, director, writers, cast,tags,releaseDate } = movieInfo;
-  console.log(writers, 'writers.length')
+  const updateGenres = (genres) => {
+    setMovieInfo({ ...movieInfo, genres });
+  };
+  const { title, storyLine, director, writers, cast, tags, releaseDate, genres,type,
+    language,status, } = movieInfo;
+  console.log(movieInfo, 'movieInfo')
   return (
     <>
+      
       <form
-
         onSubmit={handleSubmit}
-
         className="flex space-x-3">
         <div className="w-[70%] space-y-5">
           <div>
@@ -234,7 +238,7 @@ const MovieForm = () => {
               placeholder="Search profile"
               renderItem={renderItem}
               onSelect={updateWriters}
-              value={director.name}
+             
             />
           </div>
 
@@ -251,19 +255,19 @@ const MovieForm = () => {
           </div>
 
           <div>
-          <label htmlFor="releaseDate"
+            <label htmlFor="releaseDate"
               className="dark:text-slate-500 text-slate-900 font-semibold"
-            >ReleaseDate</label> <br/>
-              <input
-            type="date"
-            className="bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-2 rounded p-1 w-auto"
-            onChange={handleChange}
-            name="releaseDate"
-            value={releaseDate}
-          />
+            >ReleaseDate</label> <br />
+            <input
+              type="date"
+              className="bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-2 rounded p-1 w-auto"
+              onChange={handleChange}
+              name="releaseDate"
+              value={releaseDate}
+            />
           </div>
-          
-        
+
+
           <button
 
             className="w-full rounded dark:bg-white bg-secondary dark:text-secondary text-white hover:bg-opacity-90 transition font-semibold text-lg cursor-pointer h-10 flex items-center justify-center"
@@ -275,14 +279,38 @@ const MovieForm = () => {
 
         <div className="w-[30%] space-y-5">
 
-          <PosterSelector 
-          name="poster"
-          onChange={handleChange}
-          selectedPoster={selectedPosterForUI}
-          accept="image/jpg, image/jpeg, image/png"
-          
+          <PosterSelector
+            name="poster"
+            onChange={handleChange}
+            selectedPoster={selectedPosterForUI}
+            accept="image/jpg, image/jpeg, image/png"
+
           />
-          <GenresSelector onClick={displayGenresModal}/>
+          <GenresSelector
+            badge={genres.length}
+            onClick={displayGenresModal} />
+
+<Selector
+            onChange={handleChange}
+            name="type"
+            value={type}
+            options={typeOptions}
+            label="Type"
+          />
+          <Selector
+            onChange={handleChange}
+            name="language"
+            value={language}
+            options={languageOptions}
+            label="Language"
+          />
+          <Selector
+            onChange={handleChange}
+            name="status"
+            value={status}
+            options={statusOptions}
+            label="Status"
+          />
         </div>
 
 
@@ -301,7 +329,10 @@ const MovieForm = () => {
 
         onClose={hideCastModal} casts={cast} visible={showCastModal} />
 
-<GenresModal visible={showGenresModal} onClose={hideGenresModal} />
+      <GenresModal
+        onSubmit={updateGenres}
+        previousSelection={genres}
+        visible={showGenresModal} onClose={hideGenresModal} />
 
     </>
 

@@ -52,7 +52,7 @@ const TagsInput = ({name,onChange }) => {
     };
     
     useEffect(() => {
-        input.current?.scrollIntoView();
+        input.current?.scrollIntoView(false);
     }, [tag]);
     
 

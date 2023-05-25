@@ -1,23 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ModalContainer from "./ModalContainer";
 import genres from '../../../Utilities/genres';
-const GenresModal = ({ visible, onClose }) => {
+import Submit from '../../../Utilities/Submit';
+import { useEffect } from 'react';
+const GenresModal = ({ visible, onClose,onSubmit,previousSelection, }) => {
+  const [selectedGenres, setSelectedGenres] = useState([]);
+console.log(selectedGenres,"selectedgenres");
+  const handleGenresSelector = (gen) => {
+    let newGenres = [];
+
+    if (selectedGenres.includes(gen)) {
+      newGenres = selectedGenres.filter((genre) => genre !== gen);
+      
+    }
+    else newGenres = [...selectedGenres, gen];
+
+    setSelectedGenres([...newGenres]);
+  };
+  const handleSubmit = () => {
+    onSubmit(selectedGenres);
+    onClose();
+  };
+
+  const handleClose = () => {
+    setSelectedGenres(previousSelection);
+    onClose();
+  };
+
+  useEffect(() => {
+    setSelectedGenres(previousSelection);
+  }, []);
     return (
-        <ModalContainer visible={visible} onClose={onClose}>
-        <h1 className="dark:text-white text-primary text-2xl font-semibold text-center">
-          Select Genres
-        </h1>
-  
-        <div className="space-y-3">
-          {genres.map((gen, index) => {
-            return (
-              <Genre selected={index === 5} key={gen}>
-              {gen}
-            </Genre>
-            );
-          })}
+      <ModalContainer visible={visible} onClose={handleClose}>
+      <div className="flex flex-col justify-between h-full">
+        <div>
+          <h1 className="dark:text-white text-primary text-2xl font-semibold text-center">
+            Select Genres
+          </h1>
+
+          <div className="space-y-3">
+            {genres.map((gen) => {
+              return (
+                <Genre
+                  onClick={() => handleGenresSelector(gen)}
+                  selected={selectedGenres.includes(gen)}
+                  key={gen}
+                >
+                  {gen}
+                </Genre>
+              );
+            })}
+          </div>
         </div>
-      </ModalContainer>
+
+        <div className="w-56 self-end">
+          <Submit value="Select" type="button" onClick={handleSubmit} />
+        </div>
+      </div>
+    </ModalContainer>
     );
 };
 

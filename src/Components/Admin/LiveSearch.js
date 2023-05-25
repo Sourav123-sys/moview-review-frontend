@@ -17,7 +17,7 @@ const LiveSearch = ({
    // console.log(results, 'results')
     const [displaySearch, setDisplaySearch] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState(-1);
-
+    const [defaultValue, setDefaultValue] = useState("");
     const handleOnFocus = () => {
         if (results.length) setDisplaySearch(true);
     };
@@ -61,7 +61,18 @@ const LiveSearch = ({
         return inputStyle
           ? inputStyle
           :  "w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-2 rounded p-1 text-lg";
-      };
+  };
+  
+  useEffect(() => {
+    if (value) {
+      setDefaultValue(value);
+    }
+  }, [value]);
+  
+  const handleChange = (e) => {
+    setDefaultValue(e.target.value);
+    onChange && onChange(e);
+  };
     return (
         <div
 
@@ -79,8 +90,8 @@ const LiveSearch = ({
                 // onKeyDown={handleKeyDown}
                 onFocus={handleOnFocus}
             // onBlur={handleOnBlur}
-            value={value}
-            onChange={onChange}
+            value={defaultValue}
+            onChange={handleChange}
             />
             <SearchResults
                    results={results}

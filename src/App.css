@@ -49,3 +49,13 @@
   .custom-scroll-bar-live::-webkit-scrollbar-thumb:hover {
     background: rgb(143, 190, 245);
   }
+
+  .animate-scale {
+    transform-origin: 0% 0%;
+    animation: scale 0.2s;
+  }
+  
+  .animate-scale-reverse {
+    transform-origin: 0% 0%;
+    animation: scale 0.2s reverse forwards;
+  }
