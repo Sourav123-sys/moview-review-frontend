@@ -13,7 +13,7 @@ import { Toaster } from 'react-hot-toast';
 import NotFound from './Components/NotFound.js/NotFound';
 import { ToastContainer } from 'react-toastify';
 import { useAuth } from './Hooks/useTheme';
-import AdminNavigator from './Components/Admin/AdminNavigator/AdminNavigator';
+//import AdminNavigator from './Components/Admin/AdminNavigator/AdminNavigator';
 import DashBoard from './Components/Admin/DashBoard';
 import Movies from './Components/Admin/Movies';
 import Actor from './Components/Admin/Actor';

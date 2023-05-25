@@ -23,7 +23,7 @@ const MovieUpload = ({ width, message }) => {
         cast: [],
         director: {},
         writers: [],
-        releseDate: "",
+        releaseDate: "",
         poster: null,
         genres: [],
         type: "",

@@ -12,7 +12,7 @@ const ModalContainer = ({ visible,
             if (ignoreContainer) return children;
         
             return (
-              <div className="dark:bg-primary bg-white rounded w-[45rem] h-[40rem] overflow-auto p-2 custom-scroll-bar">
+              <div className="dark:bg-[#0F172A] bg-white rounded w-[45rem] h-[40rem] overflow-auto p-2 custom-scroll-bar">
                 {children}
               </div>
             );

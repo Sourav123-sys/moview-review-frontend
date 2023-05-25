@@ -32,26 +32,31 @@ const LiveSearch = ({
 
 
 
-    const handleSelection = (selectedItem) => {
-      console.log(selectedItem);
+  const handleSelection = (selectedItem) => {
+    if (selectedItem) {
       onSelect(selectedItem);
-    };
+      closeSearch();
+    }
+  };
 
-    const handleKeyDown = ({ key }) => {
-        let nextCount;
-        const keys = ["ArrowDown", "ArrowUp", "Enter", "Escape"];
-        if (!keys.includes(key)) return;
+  const handleKeyDown = ({ key }) => {
+    let nextCount;
+    const keys = ["ArrowDown", "ArrowUp", "Enter", "Escape"];
+    if (!keys.includes(key)) return;
 
-        // move selection up and down
-        if (key === "ArrowDown") {
-            nextCount = (focusedIndex + 1) % results.length;
-        }
-        if (key === "ArrowUp") {
-            nextCount = (focusedIndex + results.length - 1) % results.length;
-        }
-        if (key === "Enter") return handleSelection(results[focusedIndex]);
-        setFocusedIndex(nextCount);
-    };
+    // move selection up and down
+    if (key === "ArrowDown") {
+      nextCount = (focusedIndex + 1) % results.length;
+    }
+    if (key === "ArrowUp") {
+      nextCount = (focusedIndex + results.length - 1) % results.length;
+    }
+    if (key === "Escape") return closeSearch();
+
+    if (key === "Enter") return handleSelection(results[focusedIndex]);
+
+    setFocusedIndex(nextCount);
+  };
     const getInputStyle = () => {
         return inputStyle
           ? inputStyle
