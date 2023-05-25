@@ -1,13 +1,21 @@
 import React from 'react';
 import PosterSelector from './PosterSelector';
 import { useState } from 'react';
+import Selector from './Selector';
+import { toast } from 'react-hot-toast';
 
 
 const defaultActorInfo = {
     name: "",
     about: "",
     avatar: null,
-  };
+    gender: "",
+};
+const genderOptions = [
+    { title: "Male", value: "male" },
+    { title: "Female", value: "female" },
+    { title: "Other", value: "other" },
+  ];
 const ActorForm = ({ title, btnTitle }) => {
     const [actorInfo, setActorInfo] = useState({ ...defaultActorInfo });
     const [selectedAvatarForUI, setSelectedAvatarForUI] = useState("");
@@ -30,10 +38,31 @@ const ActorForm = ({ title, btnTitle }) => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(actorInfo);
+        console.log(actorInfo, "actorInfo");
+        const name=e.target?.name?.value;
+        const about =e.target?.about?.value;
+        const avatar=e.target?.avatar?.value;
+        const gender = e.target?.gender?.value;
+        
+        if (!name) {
+           return toast.error("Name is missing")
+        }
+else if (!about) {
+           return toast.error("About is missing")
+        }
+       else  if (!avatar) {
+           return toast.error("Avatar is missing")
+        }
+       else  if (!gender) {
+           return toast.error("Gender is missing")
+        }
+
+        else {
+            toast.success("Actor created Successfully")
+        }
     };
   
-    const { name, about } = actorInfo;
+    const { name, about,gender } = actorInfo;
     return (
         <form
         className="dark:bg-primary bg-white p-3 w-[35rem] rounded"
@@ -57,14 +86,14 @@ const ActorForm = ({ title, btnTitle }) => {
             className="w-36 h-36 aspect-square object-cover"
             name="avatar"
             onChange={handleChange}
-            lable="Select avatar"
+            label="Select avatar"
             accept="image/jpg, image/jpeg, image/png"
           />
           <div className="flex-grow flex flex-col space-y-2">
             <input
               placeholder="Enter name"
               type="text"
-              className= "w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-b-2"
+              className="w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-b-2"
               name="name"
               value={name}
               onChange={handleChange}
@@ -74,9 +103,19 @@ const ActorForm = ({ title, btnTitle }) => {
               value={about}
               onChange={handleChange}
               placeholder="About"
-              className= "w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-b-2 resize-none h-full"
+              className="w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-b-2 resize-none h-full"
             ></textarea>
           </div>
+        </div>
+  
+        <div className="mt-3">
+          <Selector
+            options={genderOptions}
+            label="Gender"
+            value={gender}
+            onChange={handleChange}
+            name="gender"
+          />
         </div>
       </form>
     );

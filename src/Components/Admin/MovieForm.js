@@ -284,7 +284,7 @@ const MovieForm = () => {
             onChange={handleChange}
             selectedPoster={selectedPosterForUI}
             accept="image/jpg, image/jpeg, image/png"
-
+           label="Select poster"
           />
           <GenresSelector
             badge={genres.length}

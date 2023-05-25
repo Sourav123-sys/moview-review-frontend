@@ -5,14 +5,14 @@ import ActorForm from '../ActorForm';
 const ActorModal = ({ visible, onClose }) => {
     return (
         <ModalContainer
-        visible={visible}
-        onClose={onClose}
-        ignoreContainer
-      >
+            visible={visible}
+            onClose={onClose}
+            ignoreContainer
+        >
 
-<ActorForm title="Create New Actor" btnTitle="Create" />
-            
-      </ModalContainer>
+            <ActorForm title="Create New Actor" btnTitle="Create" />
+
+        </ModalContainer>
     );
 };
 
