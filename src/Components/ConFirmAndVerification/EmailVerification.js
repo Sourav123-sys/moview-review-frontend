@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { resentEmailVerificationToken, verifyUserEmail } from '../../Api/Auth';
 import { toast } from 'react-hot-toast';
-import { useAuth } from '../../Hooks/useTheme';
+import { useAuth } from '../../Hooks/Hooks';
 
 
 

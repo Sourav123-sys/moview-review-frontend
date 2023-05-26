@@ -11,6 +11,7 @@ const LiveSearch = ({
     onChange = null,
   onSelect = null,
   name,
+  visible,
   }) => {
 
    // const [results, setResults] = useState([])
@@ -73,6 +74,13 @@ const LiveSearch = ({
     setDefaultValue(e.target.value);
     onChange && onChange(e);
   };
+
+
+
+  useEffect(() => {
+    if (visible) return setDisplaySearch(visible);
+    setDisplaySearch(false);
+  }, [visible]);
     return (
         <div
 

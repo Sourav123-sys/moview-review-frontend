@@ -4,7 +4,7 @@ import { AiOutlinePlus } from 'react-icons/ai'
 
 
 import { BsFillSunFill } from 'react-icons/bs'
-import { useTheme } from '../../Hooks/useTheme';
+import { useTheme } from '../../Hooks/Hooks';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 const Header = ({ onAddActorClick, onAddMovieClick }) => {

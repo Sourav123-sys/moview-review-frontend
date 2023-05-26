@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useAuth } from '../../Hooks/useTheme';
+import { useAuth } from '../../Hooks/Hooks';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {

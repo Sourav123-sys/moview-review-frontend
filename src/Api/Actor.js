@@ -20,4 +20,21 @@ export const createActor = async (formData) => {
     toast.error(error.message);
     }
     
+};
+  
+export const searchActor = async (query) => {
+    console.log(query,"query from search actor");
+    const token = localStorage.getItem("auth-token");
+    try {
+      const res= await client(`/actor/search?name=${query}`, {
+        headers: {
+          authorization: "Bearer " + token,
+        },
+      });
+      console.log(res,"res from search actor ");
+      return res;
+    } catch (error) {
+        console.log(error,"error");
+        toast.error(error.message);
+    }
   };

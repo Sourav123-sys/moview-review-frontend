@@ -5,7 +5,7 @@ import { BiMoviePlay } from 'react-icons/bi'
 import { FaUserNinja } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import logo from "../../sflix.png";
-import { useAuth, useTheme } from '../../Hooks/useTheme';
+import { useAuth, useTheme } from '../../Hooks/Hooks';
 import { BsFillSunFill } from 'react-icons/bs'
 const AdminNavbar = () => {
     const { toggleTheme } = useTheme()

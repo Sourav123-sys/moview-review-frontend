@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../Hooks/useTheme';
+import { useAuth } from '../../Hooks/Hooks';
 import { FileUploader } from "react-drag-drop-files";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { toast } from 'react-hot-toast';
@@ -100,7 +100,7 @@ const MovieUpload = ({ width, message, visible, onClose  }) => {
 
     return (
 
-      <ModalContainer visible={visible} onClose={onClose}>
+      <ModalContainer visible={visible} >
     
 
       <MovieForm />

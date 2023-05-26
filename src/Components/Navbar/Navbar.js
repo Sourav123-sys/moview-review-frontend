@@ -2,7 +2,7 @@ import React from 'react';
 import logo from "../../sflix.png";
 import { BsFillSunFill } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth, useTheme } from '../../Hooks/useTheme';
+import { useAuth, useTheme } from '../../Hooks/Hooks';
 import { useEffect } from 'react';
 
 const Navbar = () => {

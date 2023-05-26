@@ -6,7 +6,7 @@ import { faEnvelope, faEye, faEyeSlash, faLock, faLockOpen } from '@fortawesome/
 import { createUser } from '../../Api/Auth';
 import toast, { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
-import { useAuth } from '../../Hooks/useTheme';
+import { useAuth } from '../../Hooks/Hooks';
 const Signup = () => {
 
     const { register, reset, trigger, handleSubmit, watch, formState: { errors } } = useForm();

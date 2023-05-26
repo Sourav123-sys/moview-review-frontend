@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import useTheme, { useAuth } from '../../Hooks/useTheme';
+import useTheme, { useAuth } from '../../Hooks/Hooks';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

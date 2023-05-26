@@ -12,7 +12,7 @@ import ForgetPassword from './Components/ConFirmAndVerification/ForgetPassword';
 import { Toaster } from 'react-hot-toast';
 import NotFound from './Components/NotFound.js/NotFound';
 import { ToastContainer } from 'react-toastify';
-import { useAuth } from './Hooks/useTheme';
+import { useAuth } from './Hooks/Hooks';
 //import AdminNavigator from './Components/Admin/AdminNavigator/AdminNavigator';
 import DashBoard from './Components/Admin/DashBoard';
 import Movies from './Components/Admin/Movies';

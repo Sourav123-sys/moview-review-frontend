@@ -12,6 +12,8 @@ import GenresSelector from './GenresSelector';
 import GenresModal from './Modals/GenresModal';
 import Selector from './Selector';
 import { languageOptions, statusOptions, typeOptions } from '../../Utilities/options';
+import { searchActor } from '../../Api/Actor';
+import { useSearch } from '../../Hooks/Hooks';
 
 
 
@@ -38,14 +40,18 @@ export const renderItem = (result) => {
   );
 };
 const MovieForm = () => {
-  const [results, setResults] = useState()
+  //const [results, setResults] = useState()
   const [movieInfo, setMovieInfo] = useState({ ...defaultMovieInfo });
   const [showModal, setShowModal] = useState(false);
   const [showCastModal, setShowCastModal] = useState(false);
   const [showWritersModal, setShowWritersModal] = useState(false);
   const [selectedPosterForUI, setSelectedPosterForUI] = useState("");
   const [showGenresModal, setShowGenresModal] = useState(false);
+  const [writerName, setWriterName] = useState("");
+  const [writersProfile, setWritersProfile] = useState([]);
+  const [directorsProfile, setDirectorsProfile] = useState([]);
   console.log(showCastModal, "showCastModel")
+  console.log(writerName,"writerName");
   //console.log(results, 'results from movie form')
   //const { register, reset, trigger, handleSubmit, watch, formState: { errors } } = useForm();
 
@@ -56,6 +62,9 @@ const MovieForm = () => {
   //     toast.success("Movie created successfully")
 
   // }
+
+  const { handleSearch, results, resetSearch } = useSearch();
+console.log(results,"results from movie from for search actor");
   const handleSubmit = (event) => {
 
     console.log(movieInfo, "data from movie form");
@@ -63,13 +72,24 @@ const MovieForm = () => {
     event.preventDefault()
   };
 
-  useEffect(() => {
-    fetch('fakeData.json')
-      .then(response => response.json())
-      .then(data => setResults(data))
+  // useEffect(() => {
+  //   fetch('fakeData.json')
+  //     .then(response => response.json())
+  //     .then(data => setResults(data))
 
-  }, [])
-
+  // }, [])
+  const handleProfileChange = ({ target }) => {
+    const { name, value } = target;
+    console.log(name,value,"target");
+    if (name === "director") {
+      setMovieInfo({ ...movieInfo, director: { name: value } });
+      handleSearch(searchActor, value, setDirectorsProfile);
+    }
+    if (name === "writers") {
+      setWriterName(value);
+      handleSearch(searchActor, value, setWritersProfile);
+    }
+  };
   const updatePosterForUI = (file) => {
     const url = URL.createObjectURL(file);
     setSelectedPosterForUI(url);
@@ -92,6 +112,7 @@ const MovieForm = () => {
   const updateDirector = (profile) => {
     console.log(profile, 'profile form update director')
     setMovieInfo({ ...movieInfo, director: profile });
+    resetSearch();
   };
 
   const updateWriters = (profile) => {
@@ -104,6 +125,7 @@ const MovieForm = () => {
       }
     }
     setMovieInfo({ ...movieInfo, writers: [...writers, profile] });
+    setWriterName(" ")
   };
   const hideWritersModal = () => {
     setShowWritersModal(false);
@@ -149,6 +171,9 @@ const MovieForm = () => {
   const updateGenres = (genres) => {
     setMovieInfo({ ...movieInfo, genres });
   };
+
+
+
   const { title, storyLine, director, writers, cast, tags, releaseDate, genres,type,
     language,status, } = movieInfo;
   console.log(movieInfo, 'movieInfo')
@@ -212,11 +237,13 @@ const MovieForm = () => {
             >Director</label>
             <LiveSearch
               name="director"
-              results={results}
+              results={directorsProfile}
               placeholder="Search profile"
               renderItem={renderItem}
               onSelect={updateDirector}
               value={director.name}
+              onChange={handleProfileChange}
+              visible={directorsProfile.length}
             />
           </div>
 
@@ -234,11 +261,13 @@ const MovieForm = () => {
             </div>
             <LiveSearch
               name="writers"
-              results={results}
+              results={writersProfile}
               placeholder="Search profile"
               renderItem={renderItem}
               onSelect={updateWriters}
-             
+              onChange={handleProfileChange}
+              value={writerName}
+              visible={writersProfile.length}
             />
           </div>
 
