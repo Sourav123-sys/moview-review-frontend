@@ -35,7 +35,7 @@ console.log(results,"resultsActor");
         
         if (!resultsActor.length) return setResultNotFound(true);
         setResults(resultsActor);
-        updaterFun && updaterFun([...results]);
+        updaterFun && updaterFun([...resultsActor]);
     };
 
     const debounceFunc = debounce(search, 700);

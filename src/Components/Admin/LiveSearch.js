@@ -11,11 +11,11 @@ const LiveSearch = ({
     onChange = null,
   onSelect = null,
   name,
-  visible,
+
   }) => {
 
    // const [results, setResults] = useState([])
-   // console.log(results, 'results')
+   console.log(results, 'results')
     const [displaySearch, setDisplaySearch] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState(-1);
     const [defaultValue, setDefaultValue] = useState("");
@@ -64,12 +64,14 @@ const LiveSearch = ({
           :  "w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary w-full bg-transparent outline-none dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-primary transition dark:text-white text-primary border-2 rounded p-1 text-lg";
   };
   
+  // useEffect(() => {
+  //   if (value) {
+  //     setDefaultValue(value);
+  //   }
+  // }, [value]);
   useEffect(() => {
-    if (value) {
-      setDefaultValue(value);
-    }
+    setDefaultValue(value);
   }, [value]);
-  
   const handleChange = (e) => {
     setDefaultValue(e.target.value);
     onChange && onChange(e);
@@ -78,9 +80,9 @@ const LiveSearch = ({
 
 
   useEffect(() => {
-    if (visible) return setDisplaySearch(visible);
+    if (results.length) return setDisplaySearch(true);
     setDisplaySearch(false);
-  }, [visible]);
+  }, [results.length]);
     return (
         <div
 

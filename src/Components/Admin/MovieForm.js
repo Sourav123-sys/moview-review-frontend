@@ -14,6 +14,9 @@ import Selector from './Selector';
 import { languageOptions, statusOptions, typeOptions } from '../../Utilities/options';
 import { searchActor } from '../../Api/Actor';
 import { useSearch } from '../../Hooks/Hooks';
+import { renderItem } from '../../Utilities/Common';
+import DirectorSelector from './DirectorSelector';
+import WriterSelector from './WriterSelector';
 
 
 
@@ -31,14 +34,7 @@ const defaultMovieInfo = {
   language: "",
   status: "",
 };
-export const renderItem = (result) => {
-  return (
-    <div className="flex rounded overflow-hidden">
-      <img src={result.avatar} alt="" className="w-16 h-16 object-cover" />
-      <p className="dark:text-white font-semibold">{result.name}</p>
-    </div>
-  );
-};
+
 const MovieForm = () => {
   //const [results, setResults] = useState()
   const [movieInfo, setMovieInfo] = useState({ ...defaultMovieInfo });
@@ -48,20 +44,11 @@ const MovieForm = () => {
   const [selectedPosterForUI, setSelectedPosterForUI] = useState("");
   const [showGenresModal, setShowGenresModal] = useState(false);
   const [writerName, setWriterName] = useState("");
-  const [writersProfile, setWritersProfile] = useState([]);
-  const [directorsProfile, setDirectorsProfile] = useState([]);
+ 
   console.log(showCastModal, "showCastModel")
   console.log(writerName,"writerName");
   //console.log(results, 'results from movie form')
-  //const { register, reset, trigger, handleSubmit, watch, formState: { errors } } = useForm();
 
-  // const onSubmit = async (data) => {
-
-  //     console.log(data, 'data from movie form');
-
-  //     toast.success("Movie created successfully")
-
-  // }
 
   const { handleSearch, results, resetSearch } = useSearch();
 console.log(results,"results from movie from for search actor");
@@ -78,18 +65,8 @@ console.log(results,"results from movie from for search actor");
   //     .then(data => setResults(data))
 
   // }, [])
-  const handleProfileChange = ({ target }) => {
-    const { name, value } = target;
-    console.log(name,value,"target");
-    if (name === "director") {
-      setMovieInfo({ ...movieInfo, director: { name: value } });
-      handleSearch(searchActor, value, setDirectorsProfile);
-    }
-    if (name === "writers") {
-      setWriterName(value);
-      handleSearch(searchActor, value, setWritersProfile);
-    }
-  };
+
+ 
   const updatePosterForUI = (file) => {
     const url = URL.createObjectURL(file);
     setSelectedPosterForUI(url);
@@ -174,6 +151,7 @@ console.log(results,"results from movie from for search actor");
 
 
 
+
   const { title, storyLine, director, writers, cast, tags, releaseDate, genres,type,
     language,status, } = movieInfo;
   console.log(movieInfo, 'movieInfo')
@@ -231,21 +209,7 @@ console.log(results,"results from movie from for search actor");
             <TagsInput name='tags' onChange={updateTags} />
           </div>
 
-          <div className="">
-            <label htmlFor="director"
-              className="dark:text-slate-500 text-slate-900 font-semibold"
-            >Director</label>
-            <LiveSearch
-              name="director"
-              results={directorsProfile}
-              placeholder="Search profile"
-              renderItem={renderItem}
-              onSelect={updateDirector}
-              value={director.name}
-              onChange={handleProfileChange}
-              visible={directorsProfile.length}
-            />
-          </div>
+          <DirectorSelector onSelect={updateDirector} />
 
           <div className="">
             <div className="flex justify-between">
@@ -259,16 +223,7 @@ console.log(results,"results from movie from for search actor");
                 View All
               </ViewAllBtn>
             </div>
-            <LiveSearch
-              name="writers"
-              results={writersProfile}
-              placeholder="Search profile"
-              renderItem={renderItem}
-              onSelect={updateWriters}
-              onChange={handleProfileChange}
-              value={writerName}
-              visible={writersProfile.length}
-            />
+            <WriterSelector onSelect={updateWriters} />
           </div>
 
           <div>
