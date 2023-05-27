@@ -17,6 +17,8 @@ import { useSearch } from '../../Hooks/Hooks';
 import { renderItem } from '../../Utilities/Common';
 import DirectorSelector from './DirectorSelector';
 import WriterSelector from './WriterSelector';
+import { validateMovie } from '../../Utilities/Validator';
+import Submit from '../../Utilities/Submit';
 
 
 
@@ -35,7 +37,7 @@ const defaultMovieInfo = {
   status: "",
 };
 
-const MovieForm = () => {
+const MovieForm = ({ onSubmit, busy }) => {
   //const [results, setResults] = useState()
   const [movieInfo, setMovieInfo] = useState({ ...defaultMovieInfo });
   const [showModal, setShowModal] = useState(false);
@@ -44,19 +46,65 @@ const MovieForm = () => {
   const [selectedPosterForUI, setSelectedPosterForUI] = useState("");
   const [showGenresModal, setShowGenresModal] = useState(false);
   const [writerName, setWriterName] = useState("");
- 
-  console.log(showCastModal, "showCastModel")
-  console.log(writerName,"writerName");
+
+ //console.log(showCastModal, "showCastModel")
+ //console.log(writerName, "writerName");
   //console.log(results, 'results from movie form')
 
 
   const { handleSearch, results, resetSearch } = useSearch();
-console.log(results,"results from movie from for search actor");
-  const handleSubmit = (event) => {
+ //console.log(results, "results from movie from for search actor");
 
-    console.log(movieInfo, "data from movie form");
 
-    event.preventDefault()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+   //console.log("object");
+    const { error } = validateMovie(movieInfo);
+
+    if (error) {
+      return toast.error(error);
+    }
+    // cast, tags, genres, writers
+    const { tags, genres, cast, writers, director, poster } = movieInfo;
+
+    const formData = new FormData();
+    const finalMovieInfo = {
+      ...movieInfo,
+    };
+
+    finalMovieInfo.tags = JSON.stringify(tags);
+    finalMovieInfo.genres = JSON.stringify(genres);
+
+    // {
+    //   actor: { type: mongoose.Schema.Types.ObjectId, ref: "Actor" },
+    //   roleAs: String,
+    //   leadActor: Boolean,
+    // },
+
+    const finalCast = cast.map((c) => ({
+      actor: c.profile.id,
+      roleAs: c.roleAs,
+      leadActor: c.leadActor,
+    }));
+    finalMovieInfo.cast = JSON.stringify(finalCast);
+
+    if (writers.length) {
+      const finalWriters = writers.map((w) => w.id);
+      finalMovieInfo.writers = JSON.stringify(finalWriters);
+    }
+
+    if (director.id) finalMovieInfo.director = director.id;
+    if (poster) finalMovieInfo.poster = poster;
+
+    for (let key in finalMovieInfo) {
+      formData.append(key, finalMovieInfo[key]);
+    }
+
+    onSubmit(formData);
+   console.log(formData, "formData");
+   console.log(movieInfo, "movieInfo");
+
   };
 
   // useEffect(() => {
@@ -66,7 +114,7 @@ console.log(results,"results from movie from for search actor");
 
   // }, [])
 
- 
+
   const updatePosterForUI = (file) => {
     const url = URL.createObjectURL(file);
     setSelectedPosterForUI(url);
@@ -87,7 +135,7 @@ console.log(results,"results from movie from for search actor");
     setMovieInfo({ ...movieInfo, tags });
   };
   const updateDirector = (profile) => {
-    console.log(profile, 'profile form update director')
+   //console.log(profile, 'profile form update director')
     setMovieInfo({ ...movieInfo, director: profile });
     resetSearch();
   };
@@ -152,14 +200,13 @@ console.log(results,"results from movie from for search actor");
 
 
 
-  const { title, storyLine, director, writers, cast, tags, releaseDate, genres,type,
-    language,status, } = movieInfo;
-  console.log(movieInfo, 'movieInfo')
+  const { title, storyLine, director, writers, cast, tags, releaseDate, genres, type,
+    language, status, } = movieInfo;
+ //console.log(movieInfo, 'movieInfo')
   return (
     <>
-      
-      <form
-        onSubmit={handleSubmit}
+
+      <div onSubmit={handleSubmit}
         className="flex space-x-3">
         <div className="w-[70%] space-y-5">
           <div>
@@ -252,12 +299,12 @@ console.log(results,"results from movie from for search actor");
           </div>
 
 
-          <button
-
-            className="w-full rounded dark:bg-white bg-secondary dark:text-secondary text-white hover:bg-opacity-90 transition font-semibold text-lg cursor-pointer h-10 flex items-center justify-center"
-          >
-            Upload
-          </button>
+          <Submit
+            busy={busy}
+            value="Upload"
+            onClick={handleSubmit}
+            type="button"
+          />
         </div>
 
 
@@ -268,13 +315,13 @@ console.log(results,"results from movie from for search actor");
             onChange={handleChange}
             selectedPoster={selectedPosterForUI}
             accept="image/jpg, image/jpeg, image/png"
-           label="Select poster"
+            label="Select poster"
           />
           <GenresSelector
             badge={genres.length}
             onClick={displayGenresModal} />
 
-<Selector
+          <Selector
             onChange={handleChange}
             name="type"
             value={type}
@@ -300,7 +347,7 @@ console.log(results,"results from movie from for search actor");
 
 
 
-      </form>
+      </div>
 
       <WritersModal
         onClose={() => setShowWritersModal(false)}
@@ -326,6 +373,7 @@ const ViewAllBtn = ({ visible, children, onClick }) => {
   if (!visible) return null;
   return (
     <button
+      type="button"
       onClick={onClick}
       className="dark:text-white text-primary hover:underline transition"
     >

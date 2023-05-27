@@ -20,7 +20,7 @@ const debounce = (func, delay) => {
 const DashBoard = () => {
     const { authInfo } = useAuth()
     const search = (value) => {
-        console.log(value,"search value");
+       //console.log(value,"search value");
       };
       const debounceSearch = debounce(search, 500);
     

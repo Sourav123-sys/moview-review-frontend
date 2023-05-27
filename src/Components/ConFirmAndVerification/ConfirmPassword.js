@@ -18,7 +18,7 @@ const ConfirmPassword = () => {
     const token = searchParams.get('token')
     const id = searchParams.get('id')
 
-    console.log(token, id, 'token,id')
+   //console.log(token, id, 'token,id')
     
     const [show, setShow] = useState(true)
 
@@ -39,9 +39,9 @@ const ConfirmPassword = () => {
     const isValidToken = async () => {
 
         const { data } = await verifyPasswordResetToken(token, id)
-        console.log(data,'data from is valid token')
+       //console.log(data,'data from is valid token')
       
-       console.log(data.valid, "valid")
+      //console.log(data.valid, "valid")
         
         setIsverfying(false)
 
@@ -84,9 +84,9 @@ const ConfirmPassword = () => {
 
     const onSubmit = async (DATA) => {
 
-        // console.log(data.email, 'data from signin')
-        // console.log(data.password, 'data from signin')
-        console.log(DATA, 'data from confirm')
+        ////console.log(data.email, 'data from signin')
+        ////console.log(data.password, 'data from signin')
+       //console.log(DATA, 'data from confirm')
         const newPassword = DATA.newPassword
         const confirmPassword = DATA.confirmPassword
 
@@ -98,7 +98,7 @@ const ConfirmPassword = () => {
                 newPassword: confirmPassword,
                 token:token,
             userId:id,})
-            console.log(data,'error message from confirm on submit')
+           //console.log(data,'error message from confirm on submit')
             if (data.error) {
                 toast.error (data.error)
             }

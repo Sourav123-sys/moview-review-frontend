@@ -25,10 +25,10 @@ import { useState } from 'react';
 import ActorModal from './Components/Admin/Modals/ActorModal';
 function App() {
   const { authInfo } = useAuth()
-  console.log(authInfo, 'from app')
+ //console.log(authInfo, 'from app')
   const isAdmin = authInfo.profile?.role === 'admin'
 
-  console.log(isAdmin)
+ //console.log(isAdmin)
 
   const [showMovieUploadModal, setShowMovieUploadModal] = useState(false);
   const [showActorUploadModal, setShowActorUploadModal] = useState(false);
@@ -46,6 +46,7 @@ function App() {
   const hideActorUploadModal = () => {
     setShowActorUploadModal(false);
   };
+
   return (
     <div className="App">
 

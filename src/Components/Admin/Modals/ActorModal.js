@@ -12,7 +12,7 @@ const ActorModal = ({ visible, onClose }) => {
 
         const response = await createActor(data);
         setBusy(false);
-        console.log(response, "response  from actor model");
+       //console.log(response, "response  from actor model");
         if (!response.data) {
             toast.error("try again")
         }

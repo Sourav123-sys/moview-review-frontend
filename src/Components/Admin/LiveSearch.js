@@ -15,7 +15,7 @@ const LiveSearch = ({
   }) => {
 
    // const [results, setResults] = useState([])
-   console.log(results, 'results')
+  //console.log(results, 'results')
     const [displaySearch, setDisplaySearch] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState(-1);
     const [defaultValue, setDefaultValue] = useState("");

@@ -5,8 +5,8 @@ const TagsInput = ({name,onChange }) => {
 
     const [tag, setTag] = useState("");
     const [tags, setTags] = useState([]);
-  console.log(tags,'tags')
-    console.log(tag, 'tag')
+ //console.log(tags,'tags')
+   //console.log(tag, 'tag')
     
     const input = useRef();
     const tagsInput = useRef();

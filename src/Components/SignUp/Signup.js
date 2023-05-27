@@ -10,15 +10,15 @@ import { useAuth } from '../../Hooks/Hooks';
 const Signup = () => {
 
     const { register, reset, trigger, handleSubmit, watch, formState: { errors } } = useForm();
-    console.log(errors)
+   //console.log(errors)
     const [show, setShow] = useState(true)
 
     const navigate = useNavigate()
 
     const onSubmit = async (data) => {
         const userFindId = await createUser(data);
-        console.log(userFindId, 'find id')
-        console.log(userFindId, 'user-signup')
+       //console.log(userFindId, 'find id')
+       //console.log(userFindId, 'user-signup')
         reset()
 
         navigate('/email-verification', { state: { user: userFindId }, replace: true })

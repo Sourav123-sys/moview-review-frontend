@@ -27,7 +27,7 @@ console.log(results,"resultsActor");
         
         
         const resultsActor = res.data.results
-        console.log(resultsActor,"resultsActor");
+       //console.log(resultsActor,"resultsActor");
         if (resultsActor.length<1 ) {
             return toast.error("Can't find  with this name");
         }

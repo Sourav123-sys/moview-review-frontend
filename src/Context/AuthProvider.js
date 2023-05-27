@@ -25,16 +25,16 @@ const AuthProvider = ({ children }) => {
 
     const handleLogin = async (email, password) => {
 
-        console.log(email, password, 'from handlelogin')
+       //console.log(email, password, 'from handlelogin')
 
         setAuthInfo({ ...authInfo, isPending: true })
 
         const { data } = await signInUser({ email, password })
-        console.log(data, 'from handlelogin')
+       //console.log(data, 'from handlelogin')
         const user = data.user
         const error = data.error
-        console.log(user, 'user from hadnle-login-authprovider')
-        console.log(error, 'error from hadnle-login-authprovider')
+       //console.log(user, 'user from hadnle-login-authprovider')
+       //console.log(error, 'error from hadnle-login-authprovider')
 
         if (error) {
             toast.error(error)
@@ -67,8 +67,8 @@ const AuthProvider = ({ children }) => {
         const { data } = await getIsAuth(token)
         const user = data.user
         const error = data.error
-        console.log(error, 'error for isAuth')
-        console.log(user, 'user for isAuth')
+       //console.log(error, 'error for isAuth')
+       //console.log(user, 'user for isAuth')
         if (error) {
             toast.error(error)
             return setAuthInfo({ ...authInfo, isLoggedIn: false, isPending: false, error })

@@ -17,10 +17,10 @@ const Header = ({ onAddActorClick, onAddMovieClick }) => {
     ];
     
     const handleMovie = () => {
-    console.log('handle movie')
+   //console.log('handle movie')
 }
     const handleActor = () => {
-    console.log('handle Actor')
+   //console.log('handle Actor')
 }
 
 

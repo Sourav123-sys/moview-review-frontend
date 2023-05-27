@@ -15,13 +15,13 @@ const DirectorSelector = ({ onSelect }) => {
   
     const handleOnChange = ({ target }) => {
       const { value } = target;
-      console.log(value,"value");
+     //console.log(value,"value");
       setValue(value);
       handleSearch(searchActor, value, setProfiles);
     };
   
   const handleOnSelect = (profile) => {
-      console.log(profile,"profile");
+     //console.log(profile,"profile");
       setValue(profile.name);
       onSelect(profile);
       setProfiles([]);

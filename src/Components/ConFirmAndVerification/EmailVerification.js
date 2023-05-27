@@ -14,7 +14,7 @@ const EmailVerification = () => {
 
     const [otp, setOtp] = useState(new Array(OTP_LENGTH).fill(''))
     const [activeOtpIndex, setActiveOtpIndex] = useState(0)
-    // console.log(activeOtpIndex,"active")
+    ////console.log(activeOtpIndex,"active")
 
     const { isAuth, authInfo } = useAuth()
     const { isLoggedIn, profile } = authInfo
@@ -22,7 +22,7 @@ const EmailVerification = () => {
     const inputRef = useRef()
     const { state } = useLocation()
     const user = state?.user
-    console.log(user, 'user')
+   //console.log(user, 'user')
 
     const navigate = useNavigate()
 
@@ -36,13 +36,13 @@ const EmailVerification = () => {
         setActiveOtpIndex(nextIndex)
     }
     const handleOtp = (e, index) => {
-        // console.log(e,"handleIndex")
-        // console.log(e.target.value)
+        ////console.log(e,"handleIndex")
+        ////console.log(e.target.value)
         const newOtp = [...otp]
         newOtp[index] = e.target.value.substring(e.target.value.length - 1, e.target.value.length)
 
 
-        console.log(e.target.value)
+       //console.log(e.target.value)
         if (!e.target.value) {
             focusPreviousInputField(index)
         }
@@ -54,14 +54,14 @@ const EmailVerification = () => {
     }
 
     const handleOtpResent = async () => {
-        console.log('am from handleotpresent')
+       //console.log('am from handleotpresent')
         const { data } = await resentEmailVerificationToken(user.id)
         const error = data?.error
         const message = data?.message
        
         
-        console.log(error, 'error from resent email verification handleotpresent')
-        console.log(message, 'message  from resent email verification handleotpresent')
+       //console.log(error, 'error from resent email verification handleotpresent')
+       //console.log(message, 'message  from resent email verification handleotpresent')
         if (error) {
             return toast.error(error)
         }
@@ -86,7 +86,7 @@ const EmailVerification = () => {
     useEffect(() => {
 
         inputRef.current?.focus()
-        console.log(inputRef, 'inputRef')
+       //console.log(inputRef, 'inputRef')
     }, [activeOtpIndex])
 
     useEffect(() => {
@@ -124,7 +124,7 @@ const EmailVerification = () => {
             OTP: otp.join(''),
             userId: user.id
         })
-        console.log(user, 'user from userresponse in handleotp')
+       //console.log(user, 'user from userresponse in handleotp')
         if (error) {
             toast.error(error)
         }
@@ -133,7 +133,7 @@ const EmailVerification = () => {
         }
         localStorage.setItem('auth-token', userResponse.token)
         isAuth()
-        console.log(otp)
+       //console.log(otp)
       
            
         

@@ -38,7 +38,7 @@ const ActorForm = ({ title, btnTitle, onSubmit,busy }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(actorInfo, "actorInfo");
+       //console.log(actorInfo, "actorInfo");
         const name = e.target?.name?.value;
         const about = e.target?.about?.value;
         const avatar = e.target?.avatar?.value;
@@ -63,7 +63,7 @@ const ActorForm = ({ title, btnTitle, onSubmit,busy }) => {
                 if (key) formData.append(key, actorInfo[key]);
             }
             onSubmit(formData);
-            console.log(formData,"submit-formData");
+           //console.log(formData,"submit-formData");
         }
     };
 

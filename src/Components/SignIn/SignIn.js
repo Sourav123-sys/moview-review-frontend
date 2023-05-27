@@ -26,11 +26,11 @@ console.log(authInfo, 'authInfo')
 
     const onSubmit = async (data) => {
 
-        // console.log(data.email, 'data from signin')
-        // console.log(data.password, 'data from signin')
-        console.log(data, 'data from signin')
+        ////console.log(data.email, 'data from signin')
+        ////console.log(data.password, 'data from signin')
+       //console.log(data, 'data from signin')
  handleLogin(data.email, data.password)
-        console.log(authInfo,'error from login')
+       //console.log(authInfo,'error from login')
         reset()
 
        //  navigate('/email-verification', { state: { user: userFindId }, replace: true })

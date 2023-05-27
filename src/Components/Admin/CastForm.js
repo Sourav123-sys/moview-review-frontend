@@ -21,8 +21,8 @@ const CastForm = ({ onSubmit }) => {
   const [profiles, setProfiles] = useState([]);
   const { handleSearch, resetSearch } = useSearch();
 
-  console.log(castInfo,"castInfo");
-  console.log(profiles,"castInfo-profiles");
+ //console.log(castInfo,"castInfo");
+ //console.log(profiles,"castInfo-profiles");
   //  const [results, setResults] = useState()
 
   // useEffect(() => {
@@ -73,7 +73,7 @@ const CastForm = ({ onSubmit }) => {
     handleSearch(searchActor, value, setProfiles);
   };
   const { leadActor, profile, roleAs } = castInfo;
-  console.log(leadActor, profile, roleAs, "leadActor-profile-roleas")
+ //console.log(leadActor, profile, roleAs, "leadActor-profile-roleas")
 
 
   return (

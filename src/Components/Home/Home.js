@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
 
     const { authInfo } = useAuth()
-    console.log(authInfo, 'authInfo from home page')
+   //console.log(authInfo, 'authInfo from home page')
     const { isLoggedIn } = authInfo
     const  isVerified  = authInfo?.profile?.isVerified
     const navigate = useNavigate()
@@ -13,7 +13,7 @@ const Home = () => {
 
    
     const navigateVerfication = () => {
-        console.log('am from verification page')
+       //console.log('am from verification page')
     navigate('/email-verification',{state:{user:authInfo.profile}})
 }
     return (

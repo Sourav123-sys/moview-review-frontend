@@ -11,9 +11,9 @@ const ForgetPassword = () => {
 
     const onSubmit = async (data) => {
 
-        // console.log(data.email, 'data from signin')
-        // console.log(data.password, 'data from signin')
-        console.log(data, 'data from forgot pass')
+        ////console.log(data.email, 'data from signin')
+        ////console.log(data.password, 'data from signin')
+       //console.log(data, 'data from forgot pass')
         const { error, message } = await forgetPassword(data)
         if (error) {
             toast.error(error)
