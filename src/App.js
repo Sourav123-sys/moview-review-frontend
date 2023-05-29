@@ -23,7 +23,19 @@ import axios from "axios";
 import MovieUpload from './Components/Admin/MovieUpload';
 import { useState } from 'react';
 import ActorModal from './Components/Admin/Modals/ActorModal';
+import { useEffect } from 'react';
+import Loading from './Components/Spinner/Loading';
 function App() {
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000);
+
+  }, []);
+
   const { authInfo } = useAuth()
  //console.log(authInfo, 'from app')
   const isAdmin = authInfo.profile?.role === 'admin'
@@ -48,68 +60,74 @@ function App() {
   };
 
   return (
-    <div className="App">
 
+    <>
       {
-        isAdmin ?
-          <>
-            <div className='flex dark:bg-[#192232] bg-white'>
-              <AdminNavbar />
+        isLoading === true ? <Loading /> :
+          <div className="App">
+            {
+              isAdmin ?
+                <>
+                  <div className='flex dark:bg-[#192232] bg-white'>
+                    <AdminNavbar />
 
-              <div className="flex-1 p-2 max-w-screen-xl">
-                <Header onAddMovieClick={displayMovieUploadModal}
-                onAddActorClick={displayActorUploadModal}/>
-                <Routes>
-                  <Route path='/' element={<DashBoard />}></Route>
-                  <Route path='/movies' element={<Movies />}></Route>
-                  <Route path='/actors' element={<Actor />}></Route>
-
-
-
-                  <Route path='/signin' element={<SignIn />}></Route>
-                  <Route path='/signup' element={<Signup />}></Route>
-                  <Route path='/resetPassword' element={<ConfirmPassword />}></Route>
-                  <Route path='/email-verification' element={<EmailVerification />}></Route>
-                  <Route path='/forgot-password' element={<ForgetPassword />}></Route>
-                  <Route path='*' element={<NotFound />}></Route>
-
-                </Routes>
-              </div>
-
-            </div>
-            <MovieUpload
-              visible={showMovieUploadModal}
-              onClose={hideMovieUploadModal}
-            />
-              <ActorModal
-        visible={showActorUploadModal}
-        onClose={hideActorUploadModal}
-      />
-          </>
+                    <div className="flex-1 p-2 max-w-screen-xl">
+                      <Header onAddMovieClick={displayMovieUploadModal}
+                        onAddActorClick={displayActorUploadModal} />
+                      <Routes>
+                        <Route path='/' element={<DashBoard />}></Route>
+                        <Route path='/movies' element={<Movies />}></Route>
+                        <Route path='/actors' element={<Actor />}></Route>
 
 
 
+                        <Route path='/signin' element={<SignIn />}></Route>
+                        <Route path='/signup' element={<Signup />}></Route>
+                        <Route path='/resetPassword' element={<ConfirmPassword />}></Route>
+                        <Route path='/email-verification' element={<EmailVerification />}></Route>
+                        <Route path='/forgot-password' element={<ForgetPassword />}></Route>
+                        <Route path='*' element={<NotFound />}></Route>
 
-          :
-          <>
-            <Navbar></Navbar>
-            <Routes>
-              <Route path='/' element={<Home />}></Route>
-              <Route path='/signin' element={<SignIn />}></Route>
-              <Route path='/signup' element={<Signup />}></Route>
-              <Route path='/resetPassword' element={<ConfirmPassword />}></Route>
-              <Route path='/email-verification' element={<EmailVerification />}></Route>
-              <Route path='/forgot-password' element={<ForgetPassword />}></Route>
-              <Route path='*' element={<NotFound />}></Route>
+                      </Routes>
+                    </div>
 
-            </Routes>
-          </>
+                  </div>
+                  <MovieUpload
+                    visible={showMovieUploadModal}
+                    onClose={hideMovieUploadModal}
+                  />
+                  <ActorModal
+                    visible={showActorUploadModal}
+                    onClose={hideActorUploadModal}
+                  />
+                </>
 
+
+
+
+                :
+                <>
+                  <Navbar></Navbar>
+                  <Routes>
+                    <Route path='/' element={<Home />}></Route>
+                    <Route path='/signin' element={<SignIn />}></Route>
+                    <Route path='/signup' element={<Signup />}></Route>
+                    <Route path='/resetPassword' element={<ConfirmPassword />}></Route>
+                    <Route path='/email-verification' element={<EmailVerification />}></Route>
+                    <Route path='/forgot-password' element={<ForgetPassword />}></Route>
+                    <Route path='*' element={<NotFound />}></Route>
+
+                  </Routes>
+                </>
+
+            }
+
+            <Toaster />
+            <ToastContainer />
+          </div>
       }
-
-      <Toaster />
-      <ToastContainer />
-    </div>
+    </>
+    
   );
 }
 
