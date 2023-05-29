@@ -38,3 +38,25 @@ export const searchActor = async (query) => {
         toast.error(error.message);
     }
   };
+
+
+  export const getActors = async (pageNo, limit) => {
+    const token = localStorage.getItem("auth-token");
+    console.log(pageNo,limit,"page No-Limit from page get actors");
+    try {
+      const  res  = await client(
+        `/actor/actors?pageNo=${pageNo}&limit=${limit}`,
+        {
+          headers: {
+            authorization: "Bearer " + token,
+            "content-type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res,"res from get actors");
+      return res;
+    }catch (error) {
+      //console.log(error,"error");
+       toast.error(error.message);
+   }
+  };

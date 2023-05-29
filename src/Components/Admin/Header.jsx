@@ -48,7 +48,8 @@ const Header = ({ onAddActorClick, onAddMovieClick }) => {
             <AiOutlinePlus />
           </button>
   
-          <CreateOptions
+          <CreateOptions 
+          
             visible={showOptions}
             onClose={() => setShowOptions(false)}
             options={options}
@@ -96,7 +97,7 @@ const CreateOptions = ({ options, visible, onClose }) => {
       <div
         id={containerID}
         ref={container}
-        className="absolute right-0 top-12 flex flex-col space-y-3 p-5 dark:bg-secondary bg-white drop-shadow-lg rounded animate-scale"
+        className="absolute right-0 top-12 flex flex-col space-y-3 p-5 dark:bg-secondary bg-white drop-shadow-lg rounded animate-scale z-50"
         onAnimationEnd={(e) => {
           if (e.target.classList.contains("animate-scale-reverse")) onClose();
           e.target.classList.remove("animate-scale");

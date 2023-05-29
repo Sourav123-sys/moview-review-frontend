@@ -46,3 +46,25 @@ export const uploadMovie = async (formData) => {
         toast.error(error.message);
     };
 }
+
+
+
+export const getMovies = async (pageNo, limit) => {
+    console.log(pageNo,limit,"page No-Limit from page get movie");
+    const token = localStorage.getItem("auth-token");
+  try {
+    const  res  = await client(
+      `/movie/movies?pageNo=${pageNo}&limit=${limit}`,
+      {
+        headers: {
+          authorization: "Bearer " + token,
+          "content-type": "multipart/form-data",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    //console.log(error,"error");
+     toast.error(error.message);
+ }
+};
