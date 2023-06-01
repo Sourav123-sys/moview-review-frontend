@@ -103,37 +103,3 @@ const TagsInput = ({name,onChange }) => {
 export default TagsInput;
 
 
-// {
-//     uploadProgress >= 100 ? <p className='font-semibold dark:text-[#07dede] text-black animate-pulse mt-10 text-center'>Video Uploaded successfully...</p>
-//         :
-//         <>
-//             <div className='p-2'>
-//                 <div className='dark:bg-[#171818] bg-white drop-shadow-lg p-3'>
-//                     <div className="h-3 dark:bg-[#214141] bg-[#487171] relative">
-//                         <div
-//                             style={styles.progressWidth}
-//                             className="h-full  dark:bg-[#13caca] bg-[#57b1b1] absolute left-0" >
-
-//                         </div>
-
-//                     </div>
-//                     {/* <p className='font-semibold dark:text-slate-500 text-black animate-pulse mt-1'>Upload progress 80%</p> */}
-//                     {progressMsg}
-//                 </div>
-//             </div>
-
-//             <div className="h-full flex items-center justify-center">
-//                 <FileUploader
-
-//                     handleChange={handleChange}
-//                     onTypeError={handleTypeError}
-//                     types={["mp4", "avi"]}
-//                 >
-//                     <div className="w-48 h-48 border border-dashed border-[#0f52c5]  dark:border-[#4a638d]  rounded-full flex flex-col items-center justify-center dark:text-white text-black cursor-pointer">
-//                         <AiOutlineCloudUpload size={80} />
-//                         <p>Drop your file here!</p>
-//                     </div>
-//                 </FileUploader>
-//             </div>
-//         </>
-// } 

@@ -59,4 +59,23 @@ export const searchActor = async (query) => {
       //console.log(error,"error");
        toast.error(error.message);
    }
-  };
+};
+  
+export const updateActor = async (id, formData) => {
+  const token = localStorage.getItem("auth-token");
+  console.log(id,formData,"from update-actor")
+
+  try {
+    const  res  = await client.post("/actor/updateActor/" + id, formData, {
+      headers: {
+        authorization: "Bearer " + token,
+        "content-type": "multipart/form-data",
+      },
+    });
+    console.log(res,"res from update=actor");
+    return res;
+  }catch (error) {
+    //console.log(error,"error");
+     toast.error(error.message);
+ }
+};

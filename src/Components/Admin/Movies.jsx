@@ -5,9 +5,18 @@ import { getMovies } from '../../Api/Movie';
 import { toast } from 'react-hot-toast';
 import { useEffect } from 'react';
 import NextAndPrevButton from './NextAndPrevButton';
+import ActorLoading from '../Spinner/ActorLoading';
 const limit = 1;
 let currentPageNo = 0;
 const Movies = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 3000);
+
+    }, []);
 
     const [movies, setMovies] = useState([]);
     const [reachedToEnd, setReachedToEnd] = useState(false);
@@ -44,17 +53,23 @@ const Movies = () => {
         fetchMovies(currentPageNo);
       }, []);
     return (
-        <div className="space-y-3 p-5">
-        {movies.map((movie) => {
-          return <MovieListItem key={movie.id} movie={movie} />;
-        })}
-  
-        <NextAndPrevButton
-          className="mt-5"
-          onNextClick={handleOnNextClick}
-          onPrevClick={handleOnPrevClick}
-        />
-      </div>
+        <>
+        {
+                  isLoading === true ? <ActorLoading /> :
+                  <div className="space-y-3 p-5">
+                  {movies.map((movie) => {
+                    return <MovieListItem key={movie.id} movie={movie} />;
+                  })}
+            
+                  <NextAndPrevButton
+                    className="mt-5"
+                    onNextClick={handleOnNextClick}
+                    onPrevClick={handleOnPrevClick}
+                  />
+                </div>
+        }
+        </>
+    
     );
 };
 
