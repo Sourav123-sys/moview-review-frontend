@@ -23,7 +23,7 @@ export const createActor = async (formData) => {
 };
   
 export const searchActor = async (query) => {
-   //console.log(query,"query from search actor");
+   console.log(query,"query from search actor");
     const token = localStorage.getItem("auth-token");
     try {
       const res= await client(`/actor/search?name=${query}`, {
@@ -31,7 +31,7 @@ export const searchActor = async (query) => {
           authorization: "Bearer " + token,
         },
       });
-     //console.log(res,"res from search actor ");
+     console.log(res,"res from search actor ");
       return res;
     } catch (error) {
        //console.log(error,"error");

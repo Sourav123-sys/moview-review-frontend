@@ -28,14 +28,21 @@ console.log(results,"resultsActor");
         
         const resultsActor = res.data.results
        //console.log(resultsActor,"resultsActor");
-        if (resultsActor.length<1 ) {
-            return toast.error("Can't find  with this name");
-        }
-
+        // if (resultsActor.length<1 ) {
+        //      return toast.error("Can't find  with this name");
         
-        if (!resultsActor.length) return setResultNotFound(true);
-        setResults(resultsActor);
-        updaterFun && updaterFun([...resultsActor]);
+        // }
+        if (!resultsActor.length) {
+            setResults([]);
+            updaterFun && updaterFun([]);
+            return setResultNotFound(true);
+          }
+      
+          setResultNotFound(false);
+          setResults(results);
+          updaterFun && updaterFun([...resultsActor]);
+        
+       
     };
 
     const debounceFunc = debounce(search, 700);
@@ -44,7 +51,7 @@ console.log(results,"resultsActor");
         setSearching(true);
         if (!query.trim()) {
             updaterFun && updaterFun([]);
-          resetSearch();
+        return  resetSearch();
         }
     
         debounceFunc(method, query, updaterFun);

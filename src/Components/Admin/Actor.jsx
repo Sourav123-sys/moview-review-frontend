@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { getActors } from '../../Api/Actor';
+import { getActors, searchActor } from '../../Api/Actor';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import ActorLoading from '../Spinner/ActorLoading';
 import NextAndPrevButton from './NextAndPrevButton';
 import UpdateActor from './Modals/UpdateActor';
 import SearchForm from './SearchForm';
+import { useSearch } from '../../Hooks/Hooks';
+import NotFoundText from './NotFoundText';
 
 
 
@@ -17,6 +19,8 @@ const Actor = () => {
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedProfile, setSelectedProfile] = useState(null);
+    const [results, setResults] = useState([]);
+    const { handleSearch, resetSearch, resultNotFound } = useSearch();
     useEffect(() => {
 
         setTimeout(() => {
@@ -88,7 +92,11 @@ const Actor = () => {
 
 
     const handleOnSearchSubmit = (value) => {
-        console.log(value);
+        handleSearch(searchActor, value, setResults);
+    };
+    const handleSearchFormReset = () => {
+        resetSearch();
+        setResults([]);
     };
     useEffect(() => {
         fetchActors(currentPageNo);
@@ -104,24 +112,44 @@ const Actor = () => {
                         <div className="p-5 sm:overflow-x-hidden">
                             <div className="flex justify-end mb-5">
                                 <SearchForm
+                                    onReset={handleSearchFormReset}
                                     onSubmit={handleOnSearchSubmit}
                                     placeholder="Search Actors..."
+                                    showResetIcon={results.length || resultNotFound}
                                 />
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-5 p-5">
-                                {actors.map((actor) => (
-                                    <ActorProfile profile={actor} key={actor.id}
-                                        onEditClick={() => handleOnEditClick(actor)} />
-                                ))}
-                            </div>
-                            <NextAndPrevButton
-                                className="mt-5"
-                                onNextClick={handleOnNextClick}
-                                onPrevClick={handleOnPrevClick}
-                            />
+                            {
+                                resultNotFound ? 
+                            <NotFoundText visible={resultNotFound} text="Record not found" />
+                                    :
+                                    <div className="grid grid-cols-4 gap-5">
+                                    {results.length || resultNotFound
+    
+                                        ? results.map((actor) => (
+                                            <ActorProfile
+                                                profile={actor}
+                                                key={actor.id}
+                                                onEditClick={() => handleOnEditClick(actor)}
+                                            />
+                                        ))
+                                        : actors.map((actor) => (
+                                            <ActorProfile
+                                                profile={actor}
+                                                key={actor.id}
+                                                onEditClick={() => handleOnEditClick(actor)}
+                                            />
+                                        ))}
+                                </div>
+                            }
+                           
 
-
-
+                            {!results.length && !resultNotFound ? (
+                                <NextAndPrevButton
+                                    className="mt-5"
+                                    onNextClick={handleOnNextClick}
+                                    onPrevClick={handleOnPrevClick}
+                                />
+                            ) : null}
                         </div>
 
                         <UpdateActor
@@ -171,7 +199,7 @@ const ActorProfile = ({ profile, onEditClick, onDeleteClick }) => {
                 />
 
                 <div className="px-2">
-                    <h1 title={name} className="text-xl text-primary dark:text-white font-semibold whitespace-nowrap">
+                    <h1 title={name} className="text-sm text-primary dark:text-white font-semibold whitespace-nowrap">
                         {name}
                     </h1>
                     <p className="text-primary dark:text-white" >

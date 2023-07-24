@@ -48,9 +48,11 @@ const ActorForm = ({ title,
         const name = e.target?.name?.value;
         const about = e.target?.about?.value;
  
-  const avatar = e.target?.avatar?.value;
+        const avatar = e.target?.avatar?.value;
+       
+        
         const gender = e.target?.gender?.value;
-
+        console.log(avatar,name,gender,about,"avatar");
         if (!name) {
             return toast.error("Name is missing")
         }
@@ -58,7 +60,7 @@ const ActorForm = ({ title,
             return toast.error("About is missing")
         }
             
-        else if (avatar && !avatar.type?.startsWith("image"))
+        else if (!avatar )
         {
             return toast.error("Invalid image / avatar file!")
         }

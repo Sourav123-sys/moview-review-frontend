@@ -37,7 +37,7 @@ const defaultMovieInfo = {
   status: "",
 };
 
-const MovieForm = ({ onSubmit, busy }) => {
+const MovieForm = ({ onSubmit, busy,initialState,btnTitle }) => {
   //const [results, setResults] = useState()
   const [movieInfo, setMovieInfo] = useState({ ...defaultMovieInfo });
   const [showModal, setShowModal] = useState(false);
@@ -198,6 +198,16 @@ const MovieForm = ({ onSubmit, busy }) => {
   };
 
 
+  useEffect(() => {
+    if (initialState) {
+      setMovieInfo({
+        ...initialState,
+        releaseDate: initialState.releaseDate?.split("T")[0],
+        poster: null,
+      });
+      setSelectedPosterForUI(initialState.poster);
+    }
+  }, [initialState]);
 
 
   const { title, storyLine, director, writers, cast, tags, releaseDate, genres, type,
@@ -301,7 +311,7 @@ const MovieForm = ({ onSubmit, busy }) => {
 
           <Submit
             busy={busy}
-            value="Upload"
+            value={btnTitle}
             onClick={handleSubmit}
             type="button"
           />

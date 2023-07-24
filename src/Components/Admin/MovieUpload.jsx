@@ -150,7 +150,9 @@ const MovieUpload = ({ width, message, visible, onClose }) => {
           handleChange={handleChange}
         />
       ) :
-        <MovieForm busy={busy} onSubmit={!busy ? handleSubmit : null} />
+        <MovieForm
+        btnTitle="Upload"
+          busy={busy} onSubmit={!busy ? handleSubmit : null} />
       }
     </ModalContainer>
 
