@@ -214,6 +214,7 @@ const MovieForm = ({ onSubmit, busy,initialState,btnTitle }) => {
     language, status, } = movieInfo;
  //console.log(movieInfo, 'movieInfo')
   return (
+    
     <>
 
       <div onSubmit={handleSubmit}

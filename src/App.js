@@ -25,6 +25,7 @@ import { useState } from 'react';
 import ActorModal from './Components/Admin/Modals/ActorModal';
 import { useEffect } from 'react';
 import Loading from './Components/Spinner/Loading';
+import SearchMovies from './Components/Admin/SearchMovies';
 function App() {
 
   const [isLoading, setIsLoading] = useState(true);
@@ -78,6 +79,7 @@ function App() {
                         <Route path='/' element={<DashBoard />}></Route>
                         <Route path='/movies' element={<Movies />}></Route>
                         <Route path='/actors' element={<Actor />}></Route>
+                        <Route path='/search' element={<SearchMovies />}></Route>
 
 
 

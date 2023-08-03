@@ -113,3 +113,18 @@ export const deleteMovie = async (id) => {
         toast.error(error.message);
     }
   };
+
+  export const searchMovieForAdmin = async (title) => {
+    const token = localStorage.getItem("auth-token");
+    try {
+      const  res  = await client(`/movie/search?title=${title}`, {
+        headers: {
+          authorization: "Bearer " + token,
+        },
+      });
+      console.log(res, "res from search movie admin");
+      return res;
+    } catch (error) {
+     console.log(error);
+    }
+  };

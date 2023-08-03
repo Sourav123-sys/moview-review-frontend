@@ -151,6 +151,7 @@ const MovieUpload = ({ width, message, visible, onClose }) => {
         />
       ) :
         <MovieForm
+        onClose={onClose}
         btnTitle="Upload"
           busy={busy} onSubmit={!busy ? handleSubmit : null} />
       }

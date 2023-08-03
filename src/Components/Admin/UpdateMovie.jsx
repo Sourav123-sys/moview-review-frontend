@@ -29,7 +29,7 @@ const UpdateMovie = ({ visible, initialState, onSuccess, onClose, }) => {
     onClose();
   };
     return (
-        <ModalContainer visible={visible}  >
+        <ModalContainer visible={visible} onClose={onClose}  >
             <MovieForm 
               initialState={initialState}
               btnTitle="Update"
