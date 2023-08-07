@@ -2,13 +2,17 @@ import React from 'react';
 import AuthProvider from './AuthProvider';
 import ThemeProvider from './ThemeProvider';
 import SearchProvider from './SearchProvider';
+import MoviesProvider from './MoviesProvider';
 
 const ContextProviders = ({children}) => {
     return (
-        <SearchProvider>
+      <SearchProvider>
+        <MoviesProvider>
         <AuthProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </AuthProvider>
+        </MoviesProvider>
+       
       </SearchProvider>
     
     );

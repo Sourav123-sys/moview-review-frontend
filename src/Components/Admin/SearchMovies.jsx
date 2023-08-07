@@ -5,11 +5,14 @@ import { searchMovieForAdmin } from '../../Api/Movie';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import MovieListItem from './MovieListItem';
+import NotFoundText from './NotFoundText';
 
 const SearchMovies = () => {
     const [searchParams] = useSearchParams();
     const query = searchParams.get("title");
     const [movies, setMovies] = useState([]);
+    const [resultNotFound, setResultNotFound] = useState(false);
+
     const searchMovies = async (value) => {
         const res = await searchMovieForAdmin(value);
       
@@ -17,8 +20,11 @@ const SearchMovies = () => {
         console.log(results,"results");
         if (results.length<1) {
          
-            toast.error("The film isn't available yet!!")
-        }
+          toast.error("The film isn't available yet!!")
+          
+            
+      }
+      setResultNotFound(false);
         setMovies([...results]);
       };
   
@@ -26,7 +32,9 @@ const SearchMovies = () => {
       if (query.trim()) searchMovies(query);
     }, [query]);
     return (
-        <div className="p-5 space-y-3">
+      <div className="p-5 space-y-3">
+     
+        
       {movies.map((movie) => {
         return <MovieListItem movie={movie} key={movie.id} />;
       })}
